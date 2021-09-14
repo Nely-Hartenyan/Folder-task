@@ -8,8 +8,8 @@ import TrashPage from "./Components/Trash/TrashPage";
 
 function App() {
 
-    const items = useSelector(state => state.items);
-    const trash = useSelector(state => state.trashItems);
+    const {items} = useSelector(state => state);
+    const {trashItems} = useSelector(state => state);
 
     return (
         <div>
@@ -24,11 +24,9 @@ function App() {
                     <TextItem/>
                 </Route>
                 <Route path = '/trash'>
-                    <TrashPage trash = { trash } items = { items } />
+                    <TrashPage trash = { trashItems } items = { items } />
                 </Route>
-                <Route path = '/:Folderid'>
-                    <TrashItems trash = { trash } />
-                </Route>
+
             </Switch>
         </div>
     );

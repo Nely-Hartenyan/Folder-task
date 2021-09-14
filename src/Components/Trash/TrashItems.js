@@ -4,7 +4,7 @@ import {TrashItem} from "./TrashItem";
 
 function TrashItems({trash}){
 
-    const {Folderid}=useParams()
+    const {Folderid} = useParams()
 
     const folders = trash.filter(item => item.parent === Folderid)
 

@@ -16,13 +16,11 @@ function TextItem(){
     const dispatch = useDispatch();
     const [text, setText] = useState(false);
 
-
     const changeInput = (event) => {
         setInput(event.currentTarget.value);
     }
     
     const addText = (event) => {
-
             const newDocText = {text: input, id: location.state[0].id}
             console.log(newDocText)
             dispatch(addDocText(newDocText))
@@ -35,9 +33,7 @@ function TextItem(){
             return;
         }
         setText(false);
-
     };
-
 
     return(
         <div>
@@ -80,7 +76,6 @@ function TextItem(){
                 >
                     Home
                 </Button>
-
         </div>
     )
 }

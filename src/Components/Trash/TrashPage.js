@@ -10,6 +10,7 @@ import {Alert} from "@material-ui/lab";
 
 function TrashPage({trash,items}) {
 
+
     const classes = useStyles();
     const dispatch = useDispatch()
     const history = useHistory()
@@ -67,6 +68,7 @@ function TrashPage({trash,items}) {
                     There is a folder with this name
                 </Alert>
             </Snackbar>
+
             <Snackbar
                 open = {docOpen}
                 onClose = {handleClose}
@@ -79,6 +81,7 @@ function TrashPage({trash,items}) {
                     There is a doc with this name
                 </Alert>
             </Snackbar>
+
             <Snackbar
                 open = {added}
                 onClose = {handleClose}
@@ -91,6 +94,7 @@ function TrashPage({trash,items}) {
                    Restored
                 </Alert>
             </Snackbar>
+
             <div>
                 {item.map(item => {
                     return (

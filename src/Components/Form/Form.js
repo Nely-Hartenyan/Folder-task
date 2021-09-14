@@ -37,8 +37,7 @@ export default function Form( { items } ) {
                 dispatch(addNewFolder(payload));
                 setInput('')
 
-            } else
-            {
+            } else {
                 const newFolder = {id: Date.now(), label: input, exists: false, filter: 'folder', parent: Folderid}
                 const payload = {
                     path, newFolder
@@ -63,15 +62,13 @@ export default function Form( { items } ) {
                 dispatch(addNewDoc(payload));
                 setInput('')
 
-            } else
-            {
+            } else {
                 const newDoc = {id: Date.now(), label: input, exists: false, filter: 'doc', parent: Folderid, text:''}
                 const payload = {
                     path, newDoc
                 }
                 dispatch(addNewDoc(payload));
                 setInput('')
-
             }
         }
     }
@@ -85,7 +82,7 @@ export default function Form( { items } ) {
     }
 
     const handleClose = (event, reason) => {
-        if (reason === 'clickaway') {
+        if (reason === 'timeout') {
             return;
         }
         setDocOpen(false);
@@ -94,30 +91,37 @@ export default function Form( { items } ) {
 
     return (
         <div className = {classes.container}>
+
             <Snackbar
-                open={folderOpen}
-                onClose={handleClose}
-                anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
-            >
+                open = {folderOpen}
+                onClose = {handleClose}
+                anchorOrigin = {{
+                    vertical: 'top',
+                    horizontal: 'right'
+                }}>
                 <Alert
-                    onClose={handleClose}
-                    severity="error"
+                    onClose = {handleClose}
+                    severity = "error"
                 >
                     Please enter the folder  name
                 </Alert>
             </Snackbar>
+
             <Snackbar
-                open={docOpen}
-                onClose={handleClose}
-                anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
-            >
+                open = {docOpen}
+                onClose = {handleClose}
+                anchorOrigin = {{
+                    vertical: 'top',
+                    horizontal: 'right'
+                }}>
                 <Alert
-                    onClose={handleClose}
-                    severity="error"
+                    onClose = {handleClose}
+                    severity = "error"
                 >
                     Please enter the doc  name
                 </Alert>
             </Snackbar>
+
             <form
                 className = {classes.root}
                 noValidate autoComplete = "off"
@@ -129,6 +133,7 @@ export default function Form( { items } ) {
                     onChange = {change}
                     autoFocus
                 />
+
                 <Button
                     variant = "contained"
                     color = "primary"
@@ -136,6 +141,7 @@ export default function Form( { items } ) {
                     onClick = {addFolder}>
                     Add Folder
                 </Button>
+
                 <Button
                     variant = "contained"
                     color = "primary"
@@ -143,6 +149,7 @@ export default function Form( { items } ) {
                     onClick = {addDoc}>
                     Add Doc
                 </Button>
+
                 <Button
                     variant = "contained"
                     color = "primary"
@@ -150,6 +157,7 @@ export default function Form( { items } ) {
                     onClick = {() => deleteItems(items)}>
                     Delete
                 </Button>
+
                 <Button
                     variant = "contained"
                     color = "primary"
@@ -157,6 +165,7 @@ export default function Form( { items } ) {
                     onClick = {() => history.push(`/trash`)}>
                     Trash
                 </Button>
+
             </form>
         </div>
     )

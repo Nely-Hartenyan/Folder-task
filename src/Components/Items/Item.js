@@ -21,6 +21,7 @@ export const Item = ({item}) => {
 }
     if (item.filter === 'folder')
         return <Card className = {classes.root} >
+
             <CardActionArea  >
                 <CardMedia
                     title = "Contemplative Reptile"
@@ -28,6 +29,7 @@ export const Item = ({item}) => {
                 >
                     <FolderIcon className = {classes.icon}/>
                 </CardMedia>
+
                 <CardContent className = {classes.cardContent}>
                     <Typography
                         gutterBottom variant = "h5"
@@ -40,18 +42,21 @@ export const Item = ({item}) => {
                         onClick = { () => trashItem(item)}
                     />
                 </CardContent>
+
             </CardActionArea>
         </Card>
 
     else if (item.filter === 'doc')
         return <Card className = {classes.root}>
             <CardActionArea>
+
                 <CardMedia
                     title ="Contemplative Reptile"
                     onClick = { () => history.push(`/text/${item.id}`, [item])}
                 >
                     <DescriptionIcon className = {classes.icon}   />
                 </CardMedia>
+
                 <CardContent className = {classes.cardContent}>
                     <Typography
                         gutterBottom variant = "h5"

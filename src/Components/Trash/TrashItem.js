@@ -13,7 +13,7 @@ export const TrashItem = ({trashItem, restoreItem}) => {
     const classes = useStyles();
     const dispatch = useDispatch();
 
-    const deleteItem = (trashItem) =>{
+    const deleteItem = (trashItem) => {
         dispatch(deleteTrashItem(trashItem))
     }
 
