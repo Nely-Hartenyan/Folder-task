@@ -9,68 +9,130 @@ export const Reducer = (state= defaultState, action) => {
     switch (action.type){
 
         case Types.ADD_NEW_FOLDER:
-            const existsFolder = state.items.some(item => item.filter === action.payload.newFolder.filter
-                && item.label === action.payload.newFolder.label
-                &&  item.parent === action.payload.newFolder.parent)
+            const existsFolder = state.items.some(item => item.filter === action.payload.filter
+                && item.label === action.payload.label
+                &&  item.parent === action.payload.parent)
 
             if ( existsFolder ){
                 return {...state}
             }
-            return { ...state, items: [...state.items, action.payload.newFolder]}
+            return { ...state, items: [...state.items, action.payload]}
 
         case Types.ADD_NEW_DOC:
-            const existsDoc = state.items.some(item => item.label === action.payload.newDoc.label
-                && item.filter === action.payload.newDoc.filter
-                && item.parent === action.payload.newDoc.parent );
+            const existsDoc = state.items.some(item => item.label === action.payload.label
+                && item.filter === action.payload.filter
+                && item.parent === action.payload.parent );
 
             if( existsDoc ){
                 return {...state}
             }
-                return {...state, items: [...state.items, action.payload.newDoc]}
+                return {...state, items: [...state.items, action.payload]}
 
         case Types.ADD_DOC_TEXT:
-           state.items.find( item => item.id === action.payload.id).text = action.payload.text
+           state.items.map( item => {
+               if(item.id === action.payload.id)
+                   return item.text = action.payload.text;
+               return item ;
+           } )
 
             return {...state, items: [...state.items]}
 
         case Types.DELETE_ITEM:
-            return {...state, items: state.items.filter(item => item.id !== action.payload.id
-                    && Number(item.parent) !== action.payload.id)}
+            const trashFiles = [];
+            const trashRecursFunc = (fileId) => {
+                for (let i = 0; i < state.items.length; i++) {
+                    if (Number(state.items[i].parent)=== fileId) {
+                        const fileID = state.items[i].id;
+                        const fileType = state.items[i].filter;
+                        const item = state.items.splice(i, 1);
+                        console.log(item)
 
-        case Types.DELETE_ALL_ITEMS:
-
-            return {...state, items: []}
-
-        case Types.ADD_TRASH :
-            const items = state.items.filter(item => Number(item.parent) === action.payload.id )
-
-            if(items.length > 0) {
-
-                let concatItems = items.concat(action.payload)
-                let trashItems = concatItems.concat(state.trashItems)
-
-                return  {...state, trashItems: trashItems}
-            }
-            return {...state, trashItems: [...state.trashItems, action.payload]}
+                        trashFiles.push(item[0]);
+                        i = i - 1;
+                        if (fileType === "folder") {
+                            trashRecursFunc(fileID);
+                        }
+                    }
+                }
+            };
+            trashRecursFunc(action.payload.id);
+            const endFile = state.items.filter((item) => {
+                if (item.id === action.payload.id) {
+                    item.status = true
+                    trashFiles.push(item);
+                    return false;
+                }
+                return true;
+            });
+            return {
+                ...state,
+                items: endFile,
+                trashItems: [...trashFiles, ...state.trashItems],
+            };
 
         case Types.DELETE_TRASH_ITEM:{
-            return {...state, trashItems: state.trashItems.filter(item => item.id !== action.payload.id
-                    && Number(item.parent) !== action.payload.id)}
-            }
+            const deleteFiles = [];
+            const deleteRecursFunc = (fileId) => {
+                for (let i = 0; i < state.trashItems.length; i++) {
+                    if (Number(state.trashItems[i].parent)=== fileId) {
+                        const fileID = state.trashItems[i].id;
+                        const fileType = state.trashItems[i].filter;
+                        const item = state.trashItems.splice(i, 1);
+                        deleteFiles.push(item[0]);
+                        i = i - 1;
+                        if (fileType === "folder") {
+                            deleteRecursFunc(fileID);
+                        }
+                    }
+                }
+            };
+            deleteRecursFunc(action.payload.id);
+            const endTrash = state.trashItems.filter((item) => {
+                if (item.id === action.payload.id) {
+                    item.status = false
+                    deleteFiles.push(item);
+                    return false;
+                }
+                return true;
+            });
+            return {
+                ...state,
+                trashItems: endTrash,
+            };
+        }
 
         case Types.RESTORE_TRASH_ITEM:
-            const trashItems = state.trashItems.filter(item => Number(item.parent) === action.payload.id )
+            const restoreFiles = [];
+            const restoreRecursFunc = (fileId) => {
+                for (let i = 0; i < state.trashItems.length; i++) {
+                    if (Number(state.trashItems[i].parent)=== fileId) {
+                        const fileID = state.trashItems[i].id;
+                        const fileType = state.trashItems[i].filter;
+                        const item = state.trashItems.splice(i, 1);
+                        console.log(item)
 
-                 if(trashItems.length > 0) {
-                        let concatTrashItems = trashItems.concat(action.payload)
-                        let restoreItems = concatTrashItems.concat(state.items)
-
-                        return {...state, items: restoreItems}
+                        restoreFiles.push(item[0]);
+                        i = i - 1;
+                        if (fileType === "folder") {
+                            restoreRecursFunc(fileID);
+                        }
                     }
-                 else
-                 {
-                     return {...state, items: [...state.items, action.payload]}
-                 }
+                }
+            };
+            restoreRecursFunc(action.payload.id);
+            const endTrash = state.trashItems.filter((item) => {
+                if (item.id === action.payload.id) {
+                    item.exists = false
+                    restoreFiles.push(item);
+                    return false;
+                }
+                return true;
+            });
+            return {
+                ...state,
+                items: [...restoreFiles, ...state.items],
+                trashItems: endTrash,
+            };
 
         case Types.DELETE_TRASH:
             return { ...state, trashItems: []}

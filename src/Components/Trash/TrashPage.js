@@ -3,12 +3,12 @@ import {Button} from "@material-ui/core";
 import {useStyles} from "./TrashStyle";
 import {TrashItem} from "./TrashItem";
 import {useDispatch} from "react-redux";
-import {deleteTrashItem, deleteTrashItems, restoreTrashItem} from "../Redux/action.creator";
+import { deleteTrashItems, restoreTrashItem} from "../Redux/action.creator";
 import {useHistory} from "react-router-dom";
 import Snackbar from "@material-ui/core/Snackbar";
 import {Alert} from "@material-ui/lab";
 
-function TrashPage({trash,items}) {
+const TrashPage = ({trash,items}) => {
 
 
     const classes = useStyles();
@@ -43,16 +43,16 @@ function TrashPage({trash,items}) {
         else
         {
             dispatch(restoreTrashItem(trashItem))
-            dispatch(deleteTrashItem(trashItem))
+
             setAdded(true)
         }
     }
 
-        const deleteTrash = (trash) => {
-        dispatch(deleteTrashItems(trash))
+        const deleteTrash = () => {
+        dispatch(deleteTrashItems())
     }
 
-    const item = trash.filter(item => item.exists === true )
+    const item = trash.filter(item => item.status === true )
 
     return (
         <div>
@@ -110,7 +110,7 @@ function TrashPage({trash,items}) {
                 variant="contained"
                 color="primary"
                 className={classes.btn}
-                onClick={() => deleteTrash(trash)}
+                onClick={ deleteTrash}
             >
                 Delete
             </Button>

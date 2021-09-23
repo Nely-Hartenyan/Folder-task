@@ -2,7 +2,7 @@ import React from "react";
 import {useParams} from "react-router-dom";
 import {TrashItem} from "./TrashItem";
 
-function TrashItems({trash}){
+const TrashItems = ({trash}) => {
 
     const {Folderid} = useParams()
 

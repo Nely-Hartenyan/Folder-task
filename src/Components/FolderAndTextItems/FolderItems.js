@@ -1,9 +1,10 @@
 import React from "react";
 import { useParams } from "react-router-dom";
 import Form from "../Form/Form";
-import { Item } from "../Items/Item";
+import Item from "../Items/Item";
 
-function FolderItems( { items } ){
+
+const FolderItems = ( { items } ) => {
 
     const { Folderid } = useParams()
 

@@ -1,28 +1,29 @@
 import React, {useState} from "react";
 import {Button} from "@material-ui/core";
 import {useStyles} from "../Form/FormStyle";
-import {useHistory, useLocation, useParams} from "react-router-dom";
+import {useHistory, useParams} from "react-router-dom";
 import {useDispatch} from "react-redux";
-import {addDocText, deleteItem} from "../Redux/action.creator";
+import {addDocText} from "../Redux/action.creator";
 import Snackbar from "@material-ui/core/Snackbar";
 import {Alert} from "@material-ui/lab";
 
-function TextItem(){
+ const  TextItem = ({items}) => {
 
+    const {Docid} = useParams()
     const classes = useStyles();
     const history = useHistory();
     const [input, setInput] = useState();
-    const location = useLocation();
     const dispatch = useDispatch();
     const [text, setText] = useState(false);
+
+    const item = items.find((el) => el.id === Number(Docid))
 
     const changeInput = (event) => {
         setInput(event.currentTarget.value);
     }
     
     const addText = (event) => {
-            const newDocText = {text: input, id: location.state[0].id}
-            console.log(newDocText)
+            const newDocText = {text: input, id: Number(Docid)}
             dispatch(addDocText(newDocText))
             setText(true)
         }
@@ -56,7 +57,7 @@ function TextItem(){
                 id = ""
                 cols = "100"
                 rows = "20"
-                defaultValue = {location.state[0].text}
+                defaultValue = {item.text}
                 onChange = {changeInput}
             />
         </div>

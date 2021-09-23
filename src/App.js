@@ -3,10 +3,9 @@ import {Route, Switch} from "react-router-dom";
 import TextItem from "./Components/FolderAndTextItems/TextItem";
 import FolderItems from "./Components/FolderAndTextItems/FolderItems";
 import { useSelector } from "react-redux";
-import TrashItems from "./Components/Trash/TrashItems";
 import TrashPage from "./Components/Trash/TrashPage";
 
-function App() {
+const App = () => {
 
     const {items} = useSelector(state => state);
     const {trashItems} = useSelector(state => state);
@@ -21,7 +20,7 @@ function App() {
                     <FolderItems items = { items }/>
                 </Route>
                 <Route path = '/text/:Docid'>
-                    <TextItem/>
+                    <TextItem items = {items} />
                 </Route>
                 <Route path = '/trash'>
                     <TrashPage trash = { trashItems } items = { items } />

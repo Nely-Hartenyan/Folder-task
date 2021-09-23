@@ -6,69 +6,71 @@ import {useStyles} from "./ItemStyle";
 import {useHistory} from "react-router-dom";
 import DeleteIcon from '@material-ui/icons/Delete';
 import {useDispatch} from "react-redux";
-import {addTrash, deleteItem} from "../Redux/action.creator";
+import {deleteItem} from "../Redux/action.creator";
 
-export const Item = ({item}) => {
+const Item = ({item}) => {
 
     const classes = useStyles();
     const history = useHistory();
     const dispatch = useDispatch()
 
-    const trashItem =  (trashItemS) => {
-        let item = {...trashItemS, exists: true}
-        dispatch(addTrash(item))
+    const trashItem =  (item) => {
         dispatch(deleteItem(item))
 }
-    if (item.filter === 'folder')
-        return <Card className = {classes.root} >
 
-            <CardActionArea  >
-                <CardMedia
-                    title = "Contemplative Reptile"
-                    onClick = { () => history.push(`/folder/${item.id}`)}
-                >
-                    <FolderIcon className = {classes.icon}/>
-                </CardMedia>
-
-                <CardContent className = {classes.cardContent}>
-                    <Typography
-                        gutterBottom variant = "h5"
-                        component = "h2"
+    return (
+        <>
+            {item.filter === 'folder' &&
+            <Card className = {classes.root}>
+                <CardActionArea>
+                    <CardMedia
+                        title = "Contemplative Reptile"
+                        onClick = { () => history.push(`/folder/${item.id}`)}
                     >
-                        {item.label}
-                    </Typography>
-                    <DeleteIcon
-                        className = {classes.deleteIcon}
-                        onClick = { () => trashItem(item)}
-                    />
-                </CardContent>
+                        <FolderIcon className = {classes.icon}/>
+                    </CardMedia>
 
-            </CardActionArea>
-        </Card>
-
-    else if (item.filter === 'doc')
-        return <Card className = {classes.root}>
-            <CardActionArea>
-
-                <CardMedia
-                    title ="Contemplative Reptile"
-                    onClick = { () => history.push(`/text/${item.id}`, [item])}
-                >
-                    <DescriptionIcon className = {classes.icon}   />
-                </CardMedia>
-
-                <CardContent className = {classes.cardContent}>
-                    <Typography
-                        gutterBottom variant = "h5"
-                        component = "h2"
+                    <CardContent className = {classes.cardContent}>
+                        <Typography
+                            gutterBottom variant = "h5"
+                            component = "h2"
+                        >
+                            {item.label}
+                        </Typography>
+                        <DeleteIcon
+                            className = {classes.deleteIcon}
+                            onClick = { () => trashItem(item)}
+                        />
+                    </CardContent>
+                </CardActionArea>
+            </Card>
+            }
+            {item.filter === 'doc' &&
+            <Card className = {classes.root}>
+                <CardActionArea>
+                    <CardMedia
+                        title = "Contemplative Reptile"
+                        onClick = { () => history.push(`/text/${item.id}`, [item])}
                     >
-                        {item.label}
-                    </Typography>
-                    <DeleteIcon
-                        className = {classes.deleteIcon}
-                        onClick = { () => trashItem(item)}
-                    />
-                </CardContent>
-            </CardActionArea>
-        </Card>
+                        <DescriptionIcon className = {classes.icon}/>
+                    </CardMedia>
+                    <CardContent className = {classes.cardContent}>
+                        <Typography
+                            gutterBottom variant = "h5"
+                            component = "h2"
+                        >
+                            {item.label}
+                        </Typography>
+                        <DeleteIcon
+                            className = {classes.deleteIcon}
+                            onClick = { () => trashItem(item)}
+                        />
+                    </CardContent>
+                </CardActionArea>
+            </Card>
+            }
+        </>
+    )
 }
+
+export default Item

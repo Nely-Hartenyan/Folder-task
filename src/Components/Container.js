@@ -1,8 +1,9 @@
 import React from "react";
 import Form from "./Form/Form";
-import { Item } from "./Items/Item";
+import Item from "./Items/Item";
 
-function Container({ items }) {
+
+const Container = ({ items }) => {
 
     const item = items.filter( item => item.parent === '0')
 

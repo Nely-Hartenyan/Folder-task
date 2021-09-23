@@ -8,13 +8,6 @@ export function addNewFolder (payload) {
     }
 }
 
-export function deleteAllFolders (payload){
-    return {
-        type: Types.DELETE_ALL_ITEMS,
-        payload: payload
-    }
-}
-
 export function addNewDoc (payload){
     return {
         type:Types.ADD_NEW_DOC,
@@ -29,17 +22,10 @@ export function deleteItem (payload){
     }
 }
 
-export function addTrash (payload){
-    return {
-        type:Types.ADD_TRASH,
-        payload:payload
-    }
-}
 
-export function deleteTrashItem (payload){
+export function deleteTrashItem (){
     return {
-        type:Types.DELETE_TRASH_ITEM,
-        payload:payload
+        type:Types.DELETE_TRASH_ITEM
     }
 }
 
