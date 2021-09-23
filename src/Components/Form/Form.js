@@ -81,10 +81,7 @@ import Snackbar from '@material-ui/core/Snackbar';
                     vertical: 'top',
                     horizontal: 'right'
                 }}>
-                <Alert
-                    // onClose = {handleClose}
-                    severity = "error"
-                >
+                <Alert severity = "error">
                     Please enter the folder  name
                 </Alert>
             </Snackbar>
@@ -96,10 +93,7 @@ import Snackbar from '@material-ui/core/Snackbar';
                     vertical: 'top',
                     horizontal: 'right'
                 }}>
-                <Alert
-                    // onClose = {handleClose}
-                    severity = "error"
-                >
+                <Alert severity = "error">
                     Please enter the doc  name
                 </Alert>
             </Snackbar>
