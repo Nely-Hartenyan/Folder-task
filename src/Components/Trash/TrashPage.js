@@ -3,7 +3,7 @@ import {Button} from "@material-ui/core";
 import {useStyles} from "./TrashStyle";
 import {TrashItem} from "./TrashItem";
 import {useDispatch} from "react-redux";
-import { deleteTrashItems, restoreTrashItem} from "../Redux/action.creator";
+import {deleteTrashItem, deleteTrashItems, restoreTrashItem} from "../Redux/action.creator";
 import {useHistory} from "react-router-dom";
 import Snackbar from "@material-ui/core/Snackbar";
 import {Alert} from "@material-ui/lab";
@@ -17,6 +17,7 @@ const TrashPage = ({trash,items}) => {
     const [folderOpen, setFolderOpen] = useState(false);
     const [docOpen, setDocOpen] = useState(false);
     const [added, setAdded] = useState(false);
+    const [deleted,setDeleted]  = useState(false)
 
     const handleClose = (event, reason) => {
         if (reason === 'timeout') {
@@ -25,6 +26,7 @@ const TrashPage = ({trash,items}) => {
         setFolderOpen(false);
         setDocOpen(false);
         setAdded(false)
+        setDeleted(false)
     };
 
     const restoreItem = (trashItem) => {
@@ -43,15 +45,20 @@ const TrashPage = ({trash,items}) => {
         else
         {
             dispatch(restoreTrashItem(trashItem))
-
             setAdded(true)
         }
     }
 
         const deleteTrash = () => {
         dispatch(deleteTrashItems())
+            setDeleted(true)
     }
 
+    const deleteItem = (trashItem) => {
+        dispatch(deleteTrashItem(trashItem))
+        setDeleted(true)
+
+    }
     const item = trash.filter(item => item.status === true )
 
     return (
@@ -95,6 +102,18 @@ const TrashPage = ({trash,items}) => {
                 </Alert>
             </Snackbar>
 
+            <Snackbar
+                open = {deleted}
+                onClose = {handleClose}
+                anchorOrigin = {{
+                    vertical: 'top',
+                    horizontal: 'right'
+                }}>
+                <Alert severity = "success">
+                    Deleted
+                </Alert>
+            </Snackbar>
+
             <div>
                 {item.map(item => {
                     return (
@@ -102,6 +121,7 @@ const TrashPage = ({trash,items}) => {
                             key={item.id}
                             trashItem={item}
                             restoreItem = {restoreItem}
+                            deleteItem={deleteItem}
                         />
                     )
                 })}

@@ -23,9 +23,10 @@ export function deleteItem (payload){
 }
 
 
-export function deleteTrashItem (){
+export function deleteTrashItem (payload){
     return {
-        type:Types.DELETE_TRASH_ITEM
+        type:Types.DELETE_TRASH_ITEM,
+        payload:payload
     }
 }
 
@@ -36,10 +37,10 @@ export function restoreTrashItem ( payload ){
     }
 }
 
-export function deleteTrashItems(payload){
+export function deleteTrashItems(){
     return {
         type: Types.DELETE_TRASH,
-        payload: payload
+
     }
 }
 

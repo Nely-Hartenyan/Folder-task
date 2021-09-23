@@ -3,19 +3,12 @@ import FolderIcon from '@material-ui/icons/Folder';
 import DescriptionIcon from '@material-ui/icons/Description';
 import {Card, CardActionArea, CardContent, CardMedia, Typography} from "@material-ui/core";
 import DeleteIcon from '@material-ui/icons/Delete';
-import {useDispatch} from "react-redux";
-import {deleteTrashItem} from "../Redux/action.creator";
 import {useStyles} from "./TrashStyle";
 import RestoreFromTrashIcon from '@material-ui/icons/RestoreFromTrash';
 
-export const TrashItem = ({trashItem, restoreItem}) => {
+export const TrashItem = ({trashItem, restoreItem,deleteItem}) => {
 
     const classes = useStyles();
-    const dispatch = useDispatch();
-
-    const deleteItem = (trashItem) => {
-        dispatch(deleteTrashItem(trashItem))
-    }
 
     if (trashItem.filter === 'folder')
         return <Card className = {classes.root} >
