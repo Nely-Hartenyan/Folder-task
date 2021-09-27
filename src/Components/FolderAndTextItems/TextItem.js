@@ -3,9 +3,10 @@ import {Button} from "@material-ui/core";
 import {useStyles} from "../Form/FormStyle";
 import {useHistory, useParams} from "react-router-dom";
 import {useDispatch} from "react-redux";
-import {addDocText} from "../Redux/action.creator";
+
 import Snackbar from "@material-ui/core/Snackbar";
 import {Alert} from "@material-ui/lab";
+import {addDocText} from "../../Toolkit/toolkitSlice";
 
  const  TextItem = ({items}) => {
 

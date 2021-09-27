@@ -4,7 +4,6 @@ import Item from "./Items/Item";
 import ArrowForwardIcon from "@material-ui/icons/ArrowForward";
 import {useHistory} from "react-router-dom";
 
-
 const Container = ({ items }) => {
 
     const history = useHistory()

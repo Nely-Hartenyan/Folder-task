@@ -7,8 +7,8 @@ import TrashPage from "./Components/Trash/TrashPage";
 
 const App = () => {
 
-    const {items} = useSelector(state => state);
-    const {trashItems} = useSelector(state => state);
+    const {items} = useSelector(state => state.fileFolder);
+    const {trashItems} = useSelector(state => state.fileFolder);
 
     return (
         <div>

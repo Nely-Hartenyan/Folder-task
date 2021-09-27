@@ -3,13 +3,13 @@ import {Button} from "@material-ui/core";
 import {useStyles} from "./TrashStyle";
 import {TrashItem} from "./TrashItem";
 import {useDispatch} from "react-redux";
-import {deleteTrashItem, deleteTrashItems, restoreTrashItem} from "../Redux/action.creator";
+
 import {useHistory} from "react-router-dom";
 import Snackbar from "@material-ui/core/Snackbar";
 import {Alert} from "@material-ui/lab";
+import {deleteTrashItem, deleteTrashItems, restoreTrashItem} from "../../Toolkit/toolkitSlice";
 
 const TrashPage = ({trash,items}) => {
-
 
     const classes = useStyles();
     const dispatch = useDispatch()
@@ -60,6 +60,7 @@ const TrashPage = ({trash,items}) => {
 
     }
     const item = trash.filter(item => item.status === true )
+
 
     return (
         <div>
